@@ -23,3 +23,15 @@ Based on the Code Line Counting Tool [https://github.com/AlDanial/cloc] the init
 | Version    | Files     | Blank  |  Comment | Code     |
 | ---------- |:---------:| ------:| --------:| --------:|
 | draw.0     | 21        |  280   |  470     |  950     |
+
+## draw.1
+
+The second iteration includes the following design patterns
+
+* Composite - `draw.model.Group` represents a group of Element objects that is to be treated as a single Element.
+* Command - `draw.controller.command` represents the Command objects that will execute the user actions from the GUI
+
+| Version    | Files     | Blank  |  Comment | Code     |
+| ---------- |:---------:| ------:| --------:| --------:|
+| draw.1     | 24        |  319   |  543     | 1104     |
+
