@@ -11,6 +11,8 @@ import draw.controller.handler.ActiveToolHandler;
 import draw.controller.handler.CreateHandler;
 import draw.controller.handler.Handler;
 import draw.controller.handler.SelectHandler;
+import draw.model.Element;
+import draw.model.Group;
 import draw.model.Model;
 import draw.tools.CreateTool;
 import draw.tools.OvalElt;
@@ -37,6 +39,13 @@ public class Main {
 				model.add(new RectangleElt(new Rectangle(20, 20, 100, 100)));
 				model.add(new RectangleElt(new Rectangle(40, 40, 100, 100)));
 				model.add(new OvalElt(new Rectangle(300, 20, 80, 80))); 
+				
+				Element r1 = new RectangleElt(new Rectangle(180, 20, 100, 100));
+				Element o1 = new OvalElt(new Rectangle(180, 140, 50, 50));
+				Group group = new Group(r1, o1);
+				Element r2 = new RectangleElt(new Rectangle(50, 200, 80, 80));
+				Group group2 = new Group(group, r2);
+				model.add(group2);
 
 				// Create GUI from this initial model
 				DrawingPalette frame = new DrawingPalette(model);

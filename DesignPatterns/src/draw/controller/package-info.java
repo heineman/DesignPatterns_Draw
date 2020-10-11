@@ -4,7 +4,6 @@
  * {@link draw.controller.IActionInterface} defines the high-level behavior that results
  * from a sequence of mouse interactions. 
  * 
- *
  * @since 1.0
  */
 package draw.controller;

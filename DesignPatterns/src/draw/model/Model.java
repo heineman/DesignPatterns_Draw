@@ -2,6 +2,9 @@ package draw.model;
 
 import java.util.*;
 
+/**
+ * Represents the collection of all Entity objects in the application.
+ */
 public class Model implements Iterable<Element> {
 	List<Element> topLevelElements = new ArrayList<>();
 	

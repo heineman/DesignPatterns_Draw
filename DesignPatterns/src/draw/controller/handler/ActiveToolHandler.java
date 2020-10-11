@@ -126,6 +126,7 @@ public class ActiveToolHandler extends DrawerMouseAdapter {
 				handler.move(pt, e.getModifiers(), elt, IActionInterface.NoAnchor);
 			} else {
 				elt = Optional.empty();
+				handler.move(pt, e.getModifiers(), Optional.empty(), IActionInterface.NoAnchor);  // Missing capability from draw.0
 			}
 		}
 	}

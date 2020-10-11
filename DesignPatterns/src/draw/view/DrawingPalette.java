@@ -6,12 +6,16 @@ import java.util.Hashtable;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
+import draw.controller.command.GroupCommand;
 import draw.model.Model;
 import draw.palette.PaletteEntry;
 import draw.tools.Tools;
 
 import javax.swing.GroupLayout.Alignment;
 
+/**
+ * Represents the top-level Boundary object in the application.
+ */
 public class DrawingPalette extends JFrame {
 
 	/** To keep eclipse happy. */
@@ -250,7 +254,7 @@ public class DrawingPalette extends JFrame {
 		mnDesign.add(mntmGroup);
 		mntmGroup.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Group not yet implemented...");
+				new GroupCommand(model, DrawingPalette.this).execute();
 			}
 		});
 		

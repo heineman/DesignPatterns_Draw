@@ -23,7 +23,7 @@ public abstract class Element {
 	
 	/** Empty rectangle. */
 	public static final Rectangle EmptyRectangle = new Rectangle(0,0,0,0);
-		
+
 	/**
 	 * Base constructor to establish bounding box for element.
 	 * 
