@@ -49,8 +49,15 @@ public abstract class Element {
 		this.bbox = EmptyRectangle;
 	}
 	
-	/** Set parent reference. */
-	public Element setParent(Element parent) {
+	/** 
+	 * Set the enclosing element (a group) for this element.
+	 * 
+	 * Return self for programming convenience
+	 * 
+	 * @param parent  place this into a group identified by this element
+	 * @return self
+	 */
+	public Element setParent(Group parent) {
 		if (parent == null) {
 			this.parent = Optional.empty();
 		} else {
@@ -60,23 +67,42 @@ public abstract class Element {
 		return this;
 	}
 	
-	/** Clear parent reference */
+	/** 
+	 * Clear parent reference.
+	 * 
+	 * Returns self for programming convenience
+	 * @return  self
+	 */
 	public Element removeParent() {
 		parent = Optional.empty();
 		return this;
 	}
 	
-	/** Check whether element is part of a group. */
+	/** 
+	 * Check if element is part of a group.
+	 * 
+	 * @return whether element is part of a group. 
+	 */
 	public boolean hasParent() {
 		return parent.isPresent();
 	}
 	
-	/** Return parent. If caller doesn't first check with hasParent, will get NoSuchElementException Exception. */
+	/** 
+	 * Return parent of Element.
+	 * 
+	 * If caller doesn't first validate by calling {@link #hasParent}, will get NoSuchElementException Exception.
+	 * @return parent should it exist
+	 * @throws NoSuchElementException   If did not validate that a parent exists, this exception will be thrown.
+	 */
 	public Element getParent() throws NoSuchElementException {
 		return parent.get();
 	}
 	
-	/** Return outermost group. */
+	/** 
+	 * When elements are contained in a Group, this can be used to find the outermost group.
+	 * 
+	 * @return  outermost group
+	 */
 	public Element outermostGroup() {
 		Element e = this;
 		while (e.hasParent()) {

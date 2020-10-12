@@ -8,7 +8,7 @@ import java.util.Optional;
 import draw.model.Element;
 import draw.model.Group;
 import draw.model.Visitor;
-
+import draw.controller.IActionInterface;
 /**
  * Visitor that visits all elements and determines whether the target point is contained 
  * within any anchor of a selected element (which might be a group one).
@@ -35,8 +35,16 @@ public class AnchorVisitor implements Visitor {
 		this.pt = pt;
 	}
 
-	/** Return computations of this Visitor. */
+	/** 
+	 * Visitor result.
+	 * @return Optional element located, or Optional.empty()
+	 */
 	public Optional<Element> getElement() { return element; }
+	
+	/**
+	 * Visitor result.
+	 * @return  anchor corner detected, or {@link IActionInterface#NoAnchor} if none.
+	 */
 	public int getCorner() { return corner; }
 	
 	@Override

@@ -24,7 +24,10 @@ public class ChooseVisitor implements Visitor {
 		this.pt = pt;
 	}
 	
-	/** Return the last one selected. */
+	/** 
+	 * Result of visitor.
+	 * @return last element selected.
+	 */
 	public Optional<Element> getLastChosen() {
 		return lastChosen;
 	}

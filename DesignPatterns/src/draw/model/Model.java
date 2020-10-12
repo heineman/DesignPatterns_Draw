@@ -32,6 +32,7 @@ public class Model implements Iterable<Element> {
 	/**
 	 * Model supports the request to accept a visitor for all toplevel elements.
 	 * This will recursively be applied to all sub-elements in grouped elements.
+	 * @param v   Visitor to process all elements in the model
 	 */
 	public void accept(Visitor v) {
 		for (Element e : topLevelElements) {
