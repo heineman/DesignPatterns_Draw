@@ -6,6 +6,8 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Stroke;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 /**
  * Element that can appear in drawing.
@@ -24,6 +26,12 @@ public abstract class Element {
 	/** Empty rectangle. */
 	public static final Rectangle EmptyRectangle = new Rectangle(0,0,0,0);
 
+	/** 
+	 * Each element has a parent if it belongs to a group.
+	 * @since draw.2 
+	 */
+	protected Optional<Element> parent = Optional.empty();
+	
 	/**
 	 * Base constructor to establish bounding box for element.
 	 * 
@@ -39,6 +47,43 @@ public abstract class Element {
 	 */
 	protected Element() {
 		this.bbox = EmptyRectangle;
+	}
+	
+	/** Set parent reference. */
+	public Element setParent(Element parent) {
+		if (parent == null) {
+			this.parent = Optional.empty();
+		} else {
+			this.parent = Optional.of(parent);
+		}
+		
+		return this;
+	}
+	
+	/** Clear parent reference */
+	public Element removeParent() {
+		parent = Optional.empty();
+		return this;
+	}
+	
+	/** Check whether element is part of a group. */
+	public boolean hasParent() {
+		return parent.isPresent();
+	}
+	
+	/** Return parent. If caller doesn't first check with hasParent, will get NoSuchElementException Exception. */
+	public Element getParent() throws NoSuchElementException {
+		return parent.get();
+	}
+	
+	/** Return outermost group. */
+	public Element outermostGroup() {
+		Element e = this;
+		while (e.hasParent()) {
+			e = e.getParent();
+		}
+
+		return e;
 	}
 	
 	/** Default anchor size in pixels. */
@@ -111,6 +156,15 @@ public abstract class Element {
 	public Element setSelected(boolean flag) { 
 		selected = flag; 
 		return this; 
+	}
+	
+	/** 
+	 * Accept a visitor and dispatch.
+	 * 
+	 * @param visitor    Visitor that performs necessary operations.
+	 */
+	public void accept(Visitor visitor) {
+		visitor.visit(this);
 	}
 	
 	// Fundamental operations

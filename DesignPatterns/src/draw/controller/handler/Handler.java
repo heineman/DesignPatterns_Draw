@@ -54,12 +54,14 @@ public abstract class Handler implements IActionInterface {
 	
 	/**
 	 * Add next to be the next in the chain.
+	 * 
+	 * In draw.2, fixed to return next instead of self to chain properly. 
 	 * @param next   Next handler to append
-	 * @return   self, so programmer can chain together
+	 * @return   next, so programmer can chain together
 	 */
 	public Handler setNext(Handler next) {
 		this.next = Optional.of(next);
-		return this;
+		return next;
 	}
 	
 	@Override

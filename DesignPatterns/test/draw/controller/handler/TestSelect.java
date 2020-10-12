@@ -62,13 +62,21 @@ public class TestSelect extends generic.MouseEventTestCase {
 		// select only realizable after MOVE events.
 		ath.mouseMoved(createMoved(panel, 50, 50)); 
 		ath.mousePressed(createPressed(panel, 50, 50)); 
+		ath.mouseReleased(createReleased(panel, 50, 50)); 
 
 		Element elt = model.iterator().next(); // get only Rect object
 		assertFalse (elt.isSelected());
 		
 		ath.mouseMoved(createMoved(panel, 150, 150)); 
-		ath.mousePressed(createPressed(panel, 150, 150)); 
+		ath.mouseReleased(createPressed(panel, 150, 150)); 
+		ath.mousePressed(createReleased(panel, 150, 150)); 
 		assertTrue (elt.isSelected());
+		
+		// apply with shift and make sure it turns off
+		ath.mouseMoved(createMoved(panel, 150, 150)); 
+		ath.mousePressed(addShift(createPressed(panel, 150, 150))); 
+		ath.mouseReleased(createReleased(panel, 150, 150)); 
+		assertFalse (elt.isSelected());
 		
 	}
 }

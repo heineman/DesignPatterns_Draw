@@ -7,6 +7,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import draw.controller.command.GroupCommand;
+import draw.controller.command.UngroupCommand;
 import draw.model.Model;
 import draw.palette.PaletteEntry;
 import draw.tools.Tools;
@@ -263,7 +264,7 @@ public class DrawingPalette extends JFrame {
 		mnDesign.add(mntmUngroup);
 		mntmUngroup.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Ungroup not yet implemented...");
+				new UngroupCommand(model, DrawingPalette.this).execute();
 			}
 		});
 		

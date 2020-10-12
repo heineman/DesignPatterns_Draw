@@ -29,4 +29,13 @@ public class Model implements Iterable<Element> {
 		return topLevelElements.iterator();
 	}
 	
+	/**
+	 * Model supports the request to accept a visitor for all toplevel elements.
+	 * This will recursively be applied to all sub-elements in grouped elements.
+	 */
+	public void accept(Visitor v) {
+		for (Element e : topLevelElements) {
+			e.accept(v);
+		}
+	}
 }

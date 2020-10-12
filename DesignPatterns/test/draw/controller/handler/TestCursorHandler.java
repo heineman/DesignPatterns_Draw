@@ -1,4 +1,4 @@
-package draw.model;
+package draw.controller.handler;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -10,8 +10,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import draw.controller.handler.ActiveToolHandler;
-import draw.controller.handler.SelectHandler;
+import draw.model.Model;
 import draw.palette.PaletteEntry;
 import draw.tools.CreateTool;
 import draw.tools.OvalElt;
@@ -20,19 +19,16 @@ import draw.tools.ResetTools;
 import draw.tools.Tools;
 import draw.view.DrawingPalette;
 import draw.view.DrawingPanel;
-import draw.controller.command.GroupCommand;
-import draw.controller.command.UngroupCommand;
 
 /**
- * Augmented to also validate UngroupCommand in draw.2
- * 
- * @since draw.1
+ * @since draw.2
  */
-public class TestGroup extends generic.MouseEventTestCase {
+public class TestCursorHandler extends generic.MouseEventTestCase {
 	Model model;
 	DrawingPalette app;
 	ActiveToolHandler ath;
 	SelectHandler selectHandler;
+	ChangeCursorHandler ch;
 	OvalElt oval;
 	RectangleElt rect;
 	
@@ -56,8 +52,14 @@ public class TestGroup extends generic.MouseEventTestCase {
 		// once done, register tools with the frame. All tools will have button for it.
 		app.registerTools();
 		
-		selectHandler = new SelectHandler(model, app);
-		ath = new ActiveToolHandler(model, app, selectHandler);
+		// set up the chain go responsibility for all handlers
+		Handler chain = new SelectHandler(model, app);
+		ch = new ChangeCursorHandler(model, app);
+		chain.
+		    setNext(new CreateHandler(model, app)).
+		    setNext(ch).
+		    setNext(new ResizeHandler(model, app));
+		ath = new ActiveToolHandler(model, app, chain);
 		app.drawingPanel().registerHandler(ath);
 
 		app.setVisible(true);
@@ -82,61 +84,21 @@ public class TestGroup extends generic.MouseEventTestCase {
 		assertTrue (oval.isSelected());
 		assertFalse (rect.isSelected());
 		
-		ath.mouseMoved(createMoved(panel, 150, 150));   // inside rectangle
-		ath.mousePressed(createPressed(panel, 150, 150)); 
-		ath.mouseReleased(createReleased(panel, 150, 150));
+		ath.mouseMoved(createMoved(panel, 500, 500));   // NorthWest Anchor
+		java.awt.Cursor theCursor = app.drawingPanel().getCursor();
+		assertEquals(theCursor, ch.nw);
 		
-		assertFalse (oval.isSelected());
-		assertTrue (rect.isSelected());		
+		ath.mouseMoved(createMoved(panel, 600, 500));   // NorthEast Anchor
+		theCursor = app.drawingPanel().getCursor();
+		assertEquals(theCursor, ch.ne);
+
+		ath.mouseMoved(createMoved(panel, 600, 600));   // SouthEast Anchor
+		theCursor = app.drawingPanel().getCursor();
+		assertEquals(theCursor, ch.se);
 		
-		// now multiple shift to pick up oval
-		ath.mouseMoved(createMoved(panel, 550, 550));   // middle of oval
-		ath.mousePressed(addShift(createPressed(panel, 550, 550)));
-		ath.mouseReleased(createReleased(panel, 550, 550));
-		
-		assertTrue (oval.isSelected());
-		assertTrue (rect.isSelected());		
-		
-		// group together
-		new GroupCommand(model, app).execute();
-		
-		int count = 0;
-		for (Element e : model) {
-			assertTrue(e.isSelected());
-			count++;
-		}
-		
-		assertEquals(1, count);
-		
-		// unselect
-		ath.mouseMoved(createMoved(panel, 10, 10));   // middle of oval
-		ath.mousePressed(createPressed(panel, 10, 10));
-		ath.mouseReleased(createReleased(panel, 10, 10));
-		
-		for (Element e : model) {
-			assertFalse (e.isSelected());
-		}
-		
-		// select in the group by pressing on one of its elements
-		ath.mouseMoved(createMoved(panel, 150, 150));   // inside rectangle in group
-		ath.mousePressed(createPressed(panel, 150, 150)); 
-		ath.mouseReleased(createReleased(panel, 150, 150));
-		
-		for (Element e : model) {
-			assertTrue (e.isSelected());
-		}
-		
-		// now ungroup
-		UngroupCommand uc = new UngroupCommand(model, app);
-		uc.execute();
-		
-		count = 0;
-		for (Element e : model) {
-			assertTrue(e.isSelected());
-			count++;
-		}
-		
-		assertEquals(2, count);
+		ath.mouseMoved(createMoved(panel, 500, 600));   // SouthWest Anchor
+		theCursor = app.drawingPanel().getCursor();
+		assertEquals(theCursor, ch.sw);
 		
 		// last long enough to make visible. This is not ideal but it will ensure the graphics have
 		// a chance to at least draw the two elements.

@@ -2,7 +2,6 @@ package draw.controller.handler;
 
 import java.awt.Graphics;
 import java.awt.Point;
-import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.util.Optional;
 
@@ -10,6 +9,8 @@ import draw.model.Element;
 import draw.model.Model;
 import draw.view.DrawingPalette;
 import draw.controller.IActionInterface;
+import draw.controller.visitors.AnchorVisitor;
+import draw.controller.visitors.ChooseVisitor;
 
 /**
  * Adapts mouse events into actions, corresponding to {@link IActionInterface}, based on the active tool.
@@ -93,41 +94,18 @@ public class ActiveToolHandler extends DrawerMouseAdapter {
 	@Override
 	public final void mouseMoved(MouseEvent e) {
 		Point pt = e.getPoint();
-
-		// see if inside an anchor (only if selected!)
-		boolean isAnchor = false;
-		Element found = null;
-		for (Element et : model) {
-			if (et.contains(pt)) {
-				found = et;
-			}
-
-			// if element is selected, might be in an anchor
-			if (et.isSelected()) { 
-				int anchor = IActionInterface.SouthWestAnchor;
-				for (Rectangle r : et.getAnchors()) {
-					if (r.contains(pt)) {
-						anchorType = anchor;
-						elt = Optional.of(et);
-						handler.move(pt, e.getModifiers(), elt, anchorType);
-						isAnchor = true;
-						break;
-					}
-					anchor++;
-				}
-			}
-		}
-
-		// perhaps are on top of an element...
-		if (!isAnchor) {
+		AnchorVisitor av = new AnchorVisitor(pt);
+		model.accept(av);
+		if (av.getElement().isPresent()) {
+			anchorType = av.getCorner();
+			elt = av.getElement();
+			handler.move(pt, e.getModifiers(), elt, anchorType);
+		} else {
 			anchorType = IActionInterface.NoAnchor;
-			if (found != null) {
-				elt = Optional.of(found);
-				handler.move(pt, e.getModifiers(), elt, IActionInterface.NoAnchor);
-			} else {
-				elt = Optional.empty();
-				handler.move(pt, e.getModifiers(), Optional.empty(), IActionInterface.NoAnchor);  // Missing capability from draw.0
-			}
+			ChooseVisitor cv = new ChooseVisitor(pt);
+			model.accept(cv);
+			elt = cv.getLastChosen();
+			handler.move(pt, e.getModifiers(), elt, IActionInterface.NoAnchor);
 		}
 	}
 

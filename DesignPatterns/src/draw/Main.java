@@ -8,8 +8,10 @@ import java.awt.event.WindowEvent;
 import javax.swing.JOptionPane;
 
 import draw.controller.handler.ActiveToolHandler;
+import draw.controller.handler.ChangeCursorHandler;
 import draw.controller.handler.CreateHandler;
 import draw.controller.handler.Handler;
+import draw.controller.handler.ResizeHandler;
 import draw.controller.handler.SelectHandler;
 import draw.model.Element;
 import draw.model.Group;
@@ -62,7 +64,10 @@ public class Main {
 				
 				// set up the chain go responsibility for all handlers
 				Handler chain = new SelectHandler(model, frame);
-				chain.setNext(new CreateHandler(model, frame));
+				chain.
+				    setNext(new CreateHandler(model, frame)).
+				    setNext(new ChangeCursorHandler(model, frame)).
+				    setNext(new ResizeHandler(model, frame));
 				frame.drawingPanel().registerHandler(new ActiveToolHandler(model, frame, chain));
 				
 				// Confirm any attempt to exit
