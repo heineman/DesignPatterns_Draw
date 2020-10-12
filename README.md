@@ -3,6 +3,8 @@ Case study to demonstrate interactions among a number of core design patterns
 
 This repository contains a number of staged evolutions of a system, designed to showcase specific design patterns in context. Often design patterns are introduced to clean up some badly-written code. Here the initial design starts with the intention to make the system extensible. As you will see, this isn't just matter of creating some abstract classes. During the earliest stage of design in a system, you can already envision how a specific design pattern will be used.
 
+For ease of deployment, this repository consists of an Eclipse project.
+
 ## Entity-Boundary-ontroller
 
 The entire system is architected to conform to a style of programming called Entity-Boundary-Controller. While this is similar to the more commonly named Model-View-Controller, it differs in a number of fundamental ways. If you are interested, review two additional github repositories:
