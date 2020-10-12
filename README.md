@@ -64,3 +64,14 @@ The fifth iteration adds capabilities to edit Elements including:
 | Version    | Files     | Blank  |  Comment | Code     |
 | ---------- |:---------:| ------:| --------:| --------:|
 | draw.4     | 42        |  571   |  949     | 1980     |
+
+## draw.5
+
+The sixth iteration adds persistent storage to Model by converting Element structure into JSON and vice versa.
+
+* Adds visitors to traverse Element Structure while creating JSON
+* Incorporates JSON-Simple open source library for convertin objects to JSON and parsing JSON strings into objects
+
+| Version    | Files     | Blank  |  Comment | Code     |
+| ---------- |:---------:| ------:| --------:| --------:|
+| draw.5     | 50        |  689   |  1076    | 2395     |
