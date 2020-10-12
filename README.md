@@ -52,3 +52,15 @@ The fourth iteration adds Style features for all Elements. Some new Visitor and 
 | Version    | Files     | Blank  |  Comment | Code     |
 | ---------- |:---------:| ------:| --------:| --------:|
 | draw.3     | 34        |  482   |  839     | 1709     |
+
+## draw.4
+
+The fifth iteration adds capabilities to edit Elements including:
+
+* Moving selected Elements
+* Clipboard actions (Cut, Copy, Paste)
+* Editing actions (Delete, Duplicate)
+
+| Version    | Files     | Blank  |  Comment | Code     |
+| ---------- |:---------:| ------:| --------:| --------:|
+| draw.4     | 42        |  571   |  949     | 1980     |
