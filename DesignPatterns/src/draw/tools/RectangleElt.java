@@ -2,11 +2,20 @@ package draw.tools;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.Stroke;
+import java.util.Optional;
 
 import draw.model.Element;
+import draw.model.Style;
 
+/**
+ * Represents the drawing of an Oval element.
+ * 
+ * Style capabilities added in draw.3
+ */
 public class RectangleElt extends Element {
 	
 	public RectangleElt (Rectangle rect) {
@@ -16,8 +25,20 @@ public class RectangleElt extends Element {
 	@Override
 	public void drawElement(Graphics g) {
 		Rectangle r = getBoundingBox();
+		Style style = getStyle();
 		
-		g.setColor(Color.black);
+		Optional<Color> fill = style.fillColor;
+		if (fill.isPresent()) {
+			g.setColor(fill.get());
+			g.fillRect(r.x, r.y, r.width, r.height);
+		}
+		
+		Optional<Stroke> stroke = style.stroke;
+		if (stroke.isPresent()) {
+			((Graphics2D)g).setStroke(stroke.get());
+		}
+		
+		g.setColor(style.penColor);
 		g.drawRect(r.x, r.y, r.width, r.height);
 	}
 

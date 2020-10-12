@@ -29,6 +29,8 @@ public class CreateHandler extends Handler {
 	/**
 	 * Initiate the beginning of a drag action.
 	 * 
+	 * Since draw.3 creates element with applied style from view.
+	 * 
 	 * Might be over an existing element -- might be over empty space.
 	 */
 	@Override
@@ -45,6 +47,7 @@ public class CreateHandler extends Handler {
 			Create action = (Create) Tools.getInstance().getActiveTool();   
 			createdElement = Optional.of(action.prototype.clone());
 			createdElement.get().setBoundingBox(new Rectangle(start));
+			createdElement.get().setStyle(view.getStyle());  
 
 			view.repaint();
 		}

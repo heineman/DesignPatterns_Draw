@@ -61,6 +61,7 @@ public class Main {
 
 				// once done, register tools with the frame. All tools will have button for it.
 				frame.registerTools();
+				frame.updateStyle(frame.getStyle());   // must do after we have registered tools.
 				
 				// set up the chain go responsibility for all handlers
 				Handler chain = new SelectHandler(model, frame);

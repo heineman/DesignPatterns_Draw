@@ -1,14 +1,20 @@
 package draw.view;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
 import java.util.Hashtable;
+import java.util.Optional;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
+import draw.controller.command.FillCommand;
 import draw.controller.command.GroupCommand;
+import draw.controller.command.PenCommand;
+import draw.controller.command.StrokeCommand;
 import draw.controller.command.UngroupCommand;
 import draw.model.Model;
+import draw.model.Style;
 import draw.palette.PaletteEntry;
 import draw.tools.Tools;
 
@@ -33,6 +39,9 @@ public class DrawingPalette extends JFrame {
 	JMenuItem mntmPenColor;
 	JMenu strokes;
 	
+	/** Style informs the icons of the associated elements in the Style menu. */
+	Style prototype = Style.defaultStyle;
+	
 	/** Records the buttons constructed for available actions. */
 	Hashtable<String,JButton> actionPalette = new Hashtable<>();
 	
@@ -48,6 +57,73 @@ public class DrawingPalette extends JFrame {
 	 */
 	public DrawingPanel drawingPanel() { return drawingPanel; }
 
+	/**
+	 * Returns prototype Style object maintained by GUI.
+	 * @return  Prototype Style object
+	 * @since draw.3
+	 */
+	public Style getStyle() { return prototype; }
+	
+	/**
+	 * Update the GUI style based on parameter
+	 * @param updatedStyle   new style to record
+	 * @since draw.3
+	 */
+	public void updateStyle(Style updatedStyle) { 
+		prototype = updatedStyle;
+		strokes.setIcon(createPenIcon(32, 32));
+		mntmFillColor.setIcon(createColorIcon(prototype.fillColor, 32, 32));
+		mntmPenColor.setIcon(createColorIcon(Optional.of(prototype.penColor), 32, 32));
+	}
+	
+	/** 
+	 * Create icon for colors.
+	 * @param color     color to use
+	 * @param width     width of icon in the menu
+	 * @param height    height of icon in the menu
+	 * @return Icon to use for the GUI area
+	 * @since draw.3
+	 */
+	public ImageIcon createColorIcon(Optional<Color> color, int width, int height) {
+        BufferedImage image = new BufferedImage(width, height, java.awt.image.BufferedImage.TYPE_INT_RGB);
+        Graphics2D g = image.createGraphics();
+        if (color.isPresent()) {
+        	g.setColor(color.get());
+        } else {
+        	g.setColor(getBackground());
+        }
+        g.fillRect(0,  0, width, height);
+        
+        image.flush();
+        ImageIcon icon = new ImageIcon(image);
+        return icon;
+    }
+	
+	/** 
+	 * Create icon to associate with menu item upon changes to styles.
+	 * @param width   width of icon in the menu
+	 * @param height  height of icon in the menu
+	 * @return Icon to use for the GUI area
+	 * @since draw.3
+	 */
+	public ImageIcon createPenIcon(int width, int height) {
+        BufferedImage image = new BufferedImage(width, height, java.awt.image.BufferedImage.TYPE_INT_RGB);
+        Graphics2D g = image.createGraphics();
+        g.setColor(getBackground());
+        g.fillRect(0,  0, width, height);
+        
+        g.setColor(prototype.penColor);
+        Optional<Stroke> stroke = prototype.stroke;
+        if (stroke.isPresent()) {
+        	g.setStroke(stroke.get());
+        }
+        
+        g.drawLine(0, height/2, width, height/2);
+        image.flush();
+        ImageIcon icon = new ImageIcon(image);
+        return icon;
+    }
+	
 	/** 
 	 * Access drawing area.
 	 * @return  Returns {@link javax.swing.JScrollPane} scrolling pane which contains the drawing panel.
@@ -287,7 +363,7 @@ public class DrawingPalette extends JFrame {
 		mnStyle.add(mntmFillColor);
 		mntmFillColor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Fill Color not yet implemented...");
+				new FillCommand(model, DrawingPalette.this, true).execute();
 			}
 		});
 		
@@ -295,7 +371,7 @@ public class DrawingPalette extends JFrame {
 		mnStyle.add(mntmNoFillColor);
 		mntmNoFillColor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("No Fill Color not yet implemented...");
+				new FillCommand(model, DrawingPalette.this, false).execute();
 			}
 		});
 		
@@ -303,7 +379,7 @@ public class DrawingPalette extends JFrame {
 		mnStyle.add(mntmPenColor);
 		mntmPenColor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Pen color not yet implemented...");
+				new PenCommand(model, DrawingPalette.this).execute();
 			}
 		});
 		
@@ -312,7 +388,7 @@ public class DrawingPalette extends JFrame {
 		strokes.add(stroke1);
 		stroke1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Pen Size 1 not yet implemented...");
+				new StrokeCommand(model, DrawingPalette.this, 1).execute();
 			}
 		});
 		
@@ -320,7 +396,7 @@ public class DrawingPalette extends JFrame {
 		strokes.add(stroke2);
 		stroke2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Pen Size 2 not yet implemented...");
+				new StrokeCommand(model, DrawingPalette.this, 2).execute();
 			}
 		});
 
@@ -328,7 +404,7 @@ public class DrawingPalette extends JFrame {
 		strokes.add(stroke4);
 		stroke4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Pen Size 4 not yet implemented...");
+				new StrokeCommand(model, DrawingPalette.this, 4).execute();
 			}
 		});
 		
@@ -336,7 +412,7 @@ public class DrawingPalette extends JFrame {
 		strokes.add(stroke8);
 		stroke8.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Pen Size 8 not yet implemented...");
+				new StrokeCommand(model, DrawingPalette.this, 8).execute();
 			}
 		});
 		mnStyle.add(strokes);

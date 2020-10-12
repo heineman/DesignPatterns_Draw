@@ -32,6 +32,12 @@ public abstract class Element {
 	 */
 	protected Optional<Element> parent = Optional.empty();
 	
+	/** 
+	 * Each element has a style associated with it.
+	 * @since draw.3
+	 */
+	protected Style style = Style.defaultStyle;
+	
 	/**
 	 * Base constructor to establish bounding box for element.
 	 * 
@@ -192,6 +198,24 @@ public abstract class Element {
 	public void accept(Visitor visitor) {
 		visitor.visit(this);
 	}
+	
+	/** 
+	 * Retrieve style for this element
+	 * @return   Style associated with element
+	 * @since draw.3
+	 */
+	public Style getStyle() { return style; }
+	
+	/** 
+	 * Update style for this element.
+	 * 
+	 * Return self for programming convenience
+	 * 
+	 * @param style  new style to associate with element
+	 * @return self
+	 * @since draw.3
+	 */
+	public Element setStyle(Style style) { this.style = style; return this; }
 	
 	// Fundamental operations
 	
