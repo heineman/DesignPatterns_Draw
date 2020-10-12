@@ -45,3 +45,10 @@ The third iteration includes the following design patterns
 | ---------- |:---------:| ------:| --------:| --------:|
 | draw.2     | 30        |  408   |  656     | 1436     |
 
+## draw.3
+
+The fourth iteration adds Style features for all Elements. Some new Visitor and Command classes are designed.
+
+| Version    | Files     | Blank  |  Comment | Code     |
+| ---------- |:---------:| ------:| --------:| --------:|
+| draw.3     | 34        |  482   |  839     | 1709     |
