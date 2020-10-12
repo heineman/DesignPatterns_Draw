@@ -35,3 +35,13 @@ The second iteration includes the following design patterns
 | ---------- |:---------:| ------:| --------:| --------:|
 | draw.1     | 24        |  319   |  543     | 1104     |
 
+## draw.2
+
+The third iteration includes the following design patterns
+
+* Visitor - `draw.controller.visitors` contain the Visitor classes that encapsulate new operations without requiring changes to existing classes
+
+| Version    | Files     | Blank  |  Comment | Code     |
+| ---------- |:---------:| ------:| --------:| --------:|
+| draw.2     | 30        |  408   |  656     | 1436     |
+
