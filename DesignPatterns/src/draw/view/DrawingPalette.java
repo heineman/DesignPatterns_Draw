@@ -15,8 +15,12 @@ import draw.controller.command.DeleteCommand;
 import draw.controller.command.DuplicateCommand;
 import draw.controller.command.FillCommand;
 import draw.controller.command.GroupCommand;
+import draw.controller.command.NewCommand;
+import draw.controller.command.OpenCommand;
 import draw.controller.command.PasteCommand;
 import draw.controller.command.PenCommand;
+import draw.controller.command.QuitCommand;
+import draw.controller.command.SaveCommand;
 import draw.controller.command.StrokeCommand;
 import draw.controller.command.UngroupCommand;
 import draw.model.Model;
@@ -239,7 +243,7 @@ public class DrawingPalette extends JFrame {
 		mnFile.add(mntmNew);
 		mntmNew.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("New not yet implemented...");
+				new NewCommand(model, DrawingPalette.this).execute();
 			}
 		});
 		
@@ -248,7 +252,7 @@ public class DrawingPalette extends JFrame {
 		mnFile.add(mntmOpen);
 		mntmOpen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Open not yet implemented...");
+				new OpenCommand(model, DrawingPalette.this).execute();
 			}
 		});
 		
@@ -257,7 +261,7 @@ public class DrawingPalette extends JFrame {
 		mnFile.add(mntmSave);
 		mntmSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Save not yet implemented...");
+				new SaveCommand(model, DrawingPalette.this).execute();
 			}
 		});
 		
@@ -269,12 +273,7 @@ public class DrawingPalette extends JFrame {
 		mnFile.add(mntmQuit);
 		mntmQuit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				boolean rc = JOptionPane.showConfirmDialog (DrawingPalette.this, "Do you wish to exit Application?") == JOptionPane.OK_OPTION;
-				if (rc) {
-					setVisible(false);
-					dispose();
-					System.exit(0);
-				}
+				new QuitCommand(model, DrawingPalette.this).execute();
 			}
 		});
 		

@@ -20,7 +20,6 @@ import draw.tools.RectangleElt;
 import draw.tools.ResetTools;
 import draw.tools.Tools;
 import draw.view.DrawingPalette;
-import draw.view.DrawingPanel;
 import draw.controller.command.CopyCommand;
 import draw.controller.command.CutCommand;
 import draw.controller.command.PasteCommand;

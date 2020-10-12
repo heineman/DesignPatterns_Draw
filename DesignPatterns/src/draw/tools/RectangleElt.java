@@ -49,11 +49,13 @@ public class RectangleElt extends Element {
 
 	/** 
 	 * Covariant overriding of {@link Element#clone} method to return RectangleElt element.
-	 * @return Oval Element copy.
+	 * Modified in draw.5 to fix defect with styles
+	 * @return RectangleElt Element copy.
 	 */
 	@Override
 	public RectangleElt clone() {
-		return new RectangleElt(getBoundingBox());
+		RectangleElt copy = new RectangleElt(getBoundingBox());
+		copy.setStyle(style);
+		return copy;
 	}
-	
 }

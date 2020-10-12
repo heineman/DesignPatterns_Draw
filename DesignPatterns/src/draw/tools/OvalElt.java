@@ -63,11 +63,15 @@ public class OvalElt extends Element {
 
 	/** 
 	 * Covariant overriding of {@link Element#clone} method to return OvalElt element.
+	 * 
+	 * Modified in draw.5 to fix defect with styles
 	 * @return Oval Element copy.
 	 */
 	@Override
 	public OvalElt clone() {
-		return new OvalElt(getBoundingBox());
+		OvalElt copy = new OvalElt(getBoundingBox());
+		copy.setStyle(style);
+		return copy;
 	}
 
 }
