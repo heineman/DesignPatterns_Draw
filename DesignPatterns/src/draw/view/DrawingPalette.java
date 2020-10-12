@@ -8,8 +8,14 @@ import java.util.Optional;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
+import draw.controller.command.AboutCommand;
+import draw.controller.command.CopyCommand;
+import draw.controller.command.CutCommand;
+import draw.controller.command.DeleteCommand;
+import draw.controller.command.DuplicateCommand;
 import draw.controller.command.FillCommand;
 import draw.controller.command.GroupCommand;
+import draw.controller.command.PasteCommand;
 import draw.controller.command.PenCommand;
 import draw.controller.command.StrokeCommand;
 import draw.controller.command.UngroupCommand;
@@ -280,7 +286,7 @@ public class DrawingPalette extends JFrame {
 		mnEdit.add(mntmDelete);
 		mntmDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Delete not yet implemented...");
+				new DeleteCommand(model, DrawingPalette.this).execute();
 			}
 		});
 		
@@ -289,7 +295,7 @@ public class DrawingPalette extends JFrame {
 		mnEdit.add(mntmCut);
 		mntmCut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Cut not yet implemented...");
+				new CutCommand(model, DrawingPalette.this).execute();
 			}
 		});
 		
@@ -298,7 +304,7 @@ public class DrawingPalette extends JFrame {
 		mnEdit.add(mntmCopy);
 		mntmCopy.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Copy not yet implemented...");
+				new CopyCommand(model, DrawingPalette.this).execute();
 			}
 		});
 		
@@ -307,7 +313,7 @@ public class DrawingPalette extends JFrame {
 		mnEdit.add(mntmPaste);
 		mntmPaste.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Paste not yet implemented...");
+				new PasteCommand(model, DrawingPalette.this).execute();
 			}
 		});
 		
@@ -352,7 +358,7 @@ public class DrawingPalette extends JFrame {
 		mnDesign.add(mntmDuplicate);
 		mntmDuplicate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Duplicate not yet implemented...");
+				new DuplicateCommand(model, DrawingPalette.this).execute();
 			}
 		});
 		
@@ -424,20 +430,7 @@ public class DrawingPalette extends JFrame {
 		mnHelp.add(mntmAbout);
 		mntmAbout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ImageIcon icon = new ImageIcon(DrawingPalette.class.getResource("/img/app/appIcon.png"));
-				
-				JOptionPane.showMessageDialog(DrawingPalette.this,
-						    "Sample Application demonstrating the combined use of:\n\n" +
-				            "  * Adapter\n" + 
-						    "  * Chain of Responsibility\n" + 
-				            "  * Command\n" + 
-						    "  * Composite\n" + 
-						    "  * Singleton \n" + 
-						    "  * Visitor\n" + 
-				            "\nGeorge Heineman",
-				            "Design Pattern Exercise",
-						    JOptionPane.INFORMATION_MESSAGE,
-						    icon);
+				new AboutCommand(model, DrawingPalette.this).execute();
 			}
 		});
 	}
