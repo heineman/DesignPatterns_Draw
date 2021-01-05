@@ -12,7 +12,7 @@ The entire system is architected to conform to a style of programming called Ent
 * Tangram [https://github.com/heineman/tangram] - this case study shows a number of staged evolutions of a small application designed to support Tangrams, a two-dimensional dissection puzzle. Once the initial application is rapidly constructed, I extend the system systematically by applying design patterns to resolve coding problems encountered.
 * EBC [https://github.com/heineman/ebc-example] - this repository contains several tiny EBC examples, together with a more fleshed out example for an application that gives users the ability to solve a game consisting of sliding wooden pieces.
 
-## draw.0
+## draw.0 [JavaDoc](https://heineman.github.io/Draw/draw.0/)
 
 The first iteration includes the following design patterns
 
@@ -26,7 +26,7 @@ Based on the Code Line Counting Tool [https://github.com/AlDanial/cloc] the init
 | ---------- |:---------:| ------:| --------:| --------:|
 | draw.0     | 21        |  280   |  470     |  950     |
 
-## draw.1
+## draw.1  [JavaDoc](https://heineman.github.io/Draw/draw.1/)
 
 The second iteration includes the following design patterns
 
@@ -37,7 +37,7 @@ The second iteration includes the following design patterns
 | ---------- |:---------:| ------:| --------:| --------:|
 | draw.1     | 24        |  319   |  543     | 1104     |
 
-## draw.2
+## draw.2  [JavaDoc](https://heineman.github.io/Draw/draw.2/)
 
 The third iteration includes the following design patterns
 
@@ -47,7 +47,7 @@ The third iteration includes the following design patterns
 | ---------- |:---------:| ------:| --------:| --------:|
 | draw.2     | 30        |  408   |  656     | 1436     |
 
-## draw.3
+## draw.3  [JavaDoc](https://heineman.github.io/Draw/draw.3/)
 
 The fourth iteration adds Style features for all Elements. Some new Visitor and Command classes are designed.
 
@@ -55,7 +55,7 @@ The fourth iteration adds Style features for all Elements. Some new Visitor and 
 | ---------- |:---------:| ------:| --------:| --------:|
 | draw.3     | 34        |  482   |  839     | 1709     |
 
-## draw.4
+## draw.4  [JavaDoc](https://heineman.github.io/Draw/draw.4/)
 
 The fifth iteration adds capabilities to edit Elements including:
 
@@ -67,7 +67,7 @@ The fifth iteration adds capabilities to edit Elements including:
 | ---------- |:---------:| ------:| --------:| --------:|
 | draw.4     | 42        |  571   |  949     | 1980     |
 
-## draw.5
+## draw.5  [JavaDoc](https://heineman.github.io/Draw/draw.5/)
 
 The sixth iteration adds persistent storage to Model by converting Element structure into JSON and vice versa.
 
