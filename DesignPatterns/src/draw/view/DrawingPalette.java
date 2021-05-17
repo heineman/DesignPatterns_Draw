@@ -6,6 +6,7 @@ import java.util.Hashtable;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
+import draw.controller.command.AlignLeftCommand;
 import draw.controller.command.GroupCommand;
 import draw.controller.command.UngroupCommand;
 import draw.model.Model;
@@ -244,6 +245,15 @@ public class DrawingPalette extends JFrame {
 		mntmSelectAll.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Select All not yet implemented...");
+			}
+		});
+		
+		JMenuItem mntmAlignLeft = new JMenuItem("Align Left");
+		mntmAlignLeft.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, InputEvent.CTRL_MASK));
+		mnEdit.add(mntmAlignLeft);
+		mntmAlignLeft.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new AlignLeftCommand(model, DrawingPalette.this).execute();
 			}
 		});
 		
