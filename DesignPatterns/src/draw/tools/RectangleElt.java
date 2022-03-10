@@ -38,7 +38,7 @@ public class RectangleElt extends Element {
 			((Graphics2D)g).setStroke(stroke.get());
 		}
 		
-		g.setColor(style.penColor);
+		if (style.penColor.isPresent()) { g.setColor(style.penColor.get()); }
 		g.drawRect(r.x, r.y, r.width, r.height);
 	}
 

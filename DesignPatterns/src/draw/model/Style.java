@@ -15,13 +15,13 @@ import java.util.Optional;
  * @since draw.3
  */
 public class Style {
-	public static Style defaultStyle = new Style(Optional.of(new Color(215, 228, 189)), Color.black, Optional.empty());
+	public static Style defaultStyle = new Style(Optional.of(new Color(215, 228, 189)), Optional.of(Color.black), Optional.empty());
 
 	/** Fill Color (if set). */
 	public final Optional<Color> fillColor;
 	
 	/** Pen color to use (defaults to black). */
-	public final Color penColor;
+	public final Optional<Color> penColor;
 	
 	/** Pen width to use (only available within Graphics2D). */
 	public final Optional<Stroke> stroke;
@@ -49,7 +49,15 @@ public class Style {
 	 * @return new Style object with updated pen color
 	 */
 	public Style setPenColor(Color c) { 
-		return new Style(fillColor, c, stroke);
+		return new Style(fillColor, Optional.of(c), stroke);
+	}
+	
+	/**
+	 * Clear pen color from style.
+	 * @return new Style object with cleared pen color
+	 */
+	public Style clearPenColor() {
+		return new Style(fillColor, Optional.empty(), stroke);
 	}
 	
 	/** 
@@ -62,12 +70,20 @@ public class Style {
 	}
 	
 	/**
+	 * Clear stroke from style.
+	 * @return new Style object with cleared stroke.
+	 */
+	public Style clearStroke() {
+		return new Style(fillColor, penColor, Optional.empty());
+	}
+	
+	/**
 	 * Construct new Style object with desired criteria
 	 * @param fillColor   Fill color, or Optional.empty() if none
 	 * @param penColor    Pen color to use
 	 * @param stroke      Stroke to use
 	 */
-	public Style (Optional<Color> fillColor, Color penColor, Optional<Stroke> stroke) {
+	public Style (Optional<Color> fillColor, Optional<Color> penColor, Optional<Stroke> stroke) {
 		this.fillColor = fillColor;
 		this.penColor = penColor;
 		this.stroke = stroke;
@@ -100,4 +116,5 @@ public class Style {
 		
 		return false;
 	}
+
 }

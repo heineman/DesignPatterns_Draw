@@ -83,7 +83,7 @@ public class DrawingPalette extends JFrame {
 		prototype = updatedStyle;
 		strokes.setIcon(createPenIcon(32, 32));
 		mntmFillColor.setIcon(createColorIcon(prototype.fillColor, 32, 32));
-		mntmPenColor.setIcon(createColorIcon(Optional.of(prototype.penColor), 32, 32));
+		mntmPenColor.setIcon(createColorIcon(prototype.penColor, 32, 32));
 	}
 	
 	/** 
@@ -122,7 +122,7 @@ public class DrawingPalette extends JFrame {
         g.setColor(getBackground());
         g.fillRect(0,  0, width, height);
         
-        g.setColor(prototype.penColor);
+        if (prototype.penColor.isPresent()) { g.setColor(prototype.penColor.get()); }
         Optional<Stroke> stroke = prototype.stroke;
         if (stroke.isPresent()) {
         	g.setStroke(stroke.get());
