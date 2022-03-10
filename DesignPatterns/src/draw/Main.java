@@ -20,6 +20,7 @@ import draw.tools.CreateTool;
 import draw.tools.OvalElt;
 import draw.tools.RectangleElt;
 import draw.tools.Tools;
+import draw.tools.TriangleElt;
 import draw.view.DrawingPalette;
 
 /**
@@ -55,10 +56,12 @@ public class Main {
 				// install tools to use. Highly configurable
 				Rectangle empty = new Rectangle(0,0,0,0);
 				
+				// include triangle as a tool
 				Tools repository = Tools.getInstance();
 				repository.register(new CreateTool("rectangle", new RectangleElt(empty)).paletteEntry());
 				repository.register(new CreateTool("oval", new OvalElt(empty)).paletteEntry());
-
+				repository.register(new CreateTool("triangle", new TriangleElt(empty)).paletteEntry());
+			
 				// once done, register tools with the frame. All tools will have button for it.
 				frame.registerTools();
 				frame.updateStyle(frame.getStyle());   // must do after we have registered tools.
