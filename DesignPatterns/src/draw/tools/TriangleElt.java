@@ -57,8 +57,7 @@ public class TriangleElt extends Element {
 			int x0 = p.x - r.x;
 			return y0 <= m*x0;
 		} else {
-			int x0 = p.x - (r.x + r.width); 
-			System.out.println("right:" + x0 + "," + y0 + "," + m + "," + -m*x0 + "[" + !(y0 > -m*x0) + "]");
+			int x0 = p.x - (r.x + r.width);
 			return y0 <= -m*x0;   // slope is negative on right side.
 		}
 	}
@@ -71,5 +70,4 @@ public class TriangleElt extends Element {
 	public TriangleElt clone() {
 		return new TriangleElt(getBoundingBox());
 	}
-
 }
