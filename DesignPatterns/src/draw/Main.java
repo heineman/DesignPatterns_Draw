@@ -45,6 +45,7 @@ public class Main {
 				// install tools to use. Highly configurable
 				Rectangle empty = new Rectangle(0,0,0,0);
 				
+				// include triangle as a tool
 				Tools repository = Tools.getInstance();
 				repository.register(new CreateTool("rectangle", new RectangleElt(empty)).paletteEntry());
 				repository.register(new CreateTool("oval", new OvalElt(empty)).paletteEntry());

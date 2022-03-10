@@ -12,7 +12,7 @@ import draw.model.Element;
  * 
  * Uses basic geometry and algebra to determine when point is inside the triangle.
  * 
- * @since draw.0.triangle
+ * @since draw.0.assessment
  */
 public class TriangleElt extends Element {
 	
