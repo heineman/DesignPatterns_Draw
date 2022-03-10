@@ -37,7 +37,7 @@ public class OvalElt extends Element {
 		if (stroke.isPresent()) {
 			((Graphics2D)g).setStroke(stroke.get());
 		}
-		g.setColor(style.penColor);
+		if (style.penColor.isPresent()) { g.setColor(style.penColor.get()); }
 		g.drawOval(r.x, r.y, r.width, r.height);
 	}
 

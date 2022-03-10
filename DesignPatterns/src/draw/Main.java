@@ -13,6 +13,7 @@ import draw.controller.handler.CreateHandler;
 import draw.controller.handler.Handler;
 import draw.controller.handler.ResizeHandler;
 import draw.controller.handler.SelectHandler;
+import draw.controller.handler.UpdateMenuHandler;
 import draw.model.Element;
 import draw.model.Group;
 import draw.model.Model;
@@ -68,7 +69,8 @@ public class Main {
 				chain.
 				    setNext(new CreateHandler(model, frame)).
 				    setNext(new ChangeCursorHandler(model, frame)).
-				    setNext(new ResizeHandler(model, frame));
+				    setNext(new ResizeHandler(model, frame)).
+				    setNext(new UpdateMenuHandler(model, frame));
 				frame.drawingPanel().registerHandler(new ActiveToolHandler(model, frame, chain));
 				
 				// Confirm any attempt to exit

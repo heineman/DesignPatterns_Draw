@@ -1,6 +1,8 @@
 package draw.controller.command;
 
 import java.awt.Color;
+import java.util.Optional;
+
 import javax.swing.JColorChooser;
 
 import draw.model.Element;
@@ -44,7 +46,8 @@ public class PenCommand extends Command {
 	
 	@Override
 	public boolean execute() {
-		Color oldColor = view.getStyle().penColor;
+		Optional<Color> oldColorStyle = view.getStyle().penColor;
+		Color oldColor = oldColorStyle.orElse(Color.white); 
 		
 		Color cc = JColorChooser.showDialog(view, "Pen Color", oldColor);
 		if (cc == null) {
